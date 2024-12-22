@@ -9,7 +9,7 @@ from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
 import matplotlib.pyplot as plt
 import numpy as np
-print(qiskit.__version__)
+# print(qiskit.__version__)
 
 
 def find_alphas(target):
@@ -153,9 +153,7 @@ def zgr_parameters(m,n,target_function):
         y = np.linspace(0,1,2**(2*m)+1) 
         f = [target_function(yi) for yi in y]
         
-    print('f', f)
     fourier_coeffs = np.fft.ifft(f)
-    print('FFT',fourier_coeffs)
     fourier_coeffs = fourier_coeffs[:(2**m)]
     fourier_coeffs[0] = fourier_coeffs[0]/np.sqrt(2)
     norm = np.linalg.norm(fourier_coeffs)
@@ -369,6 +367,7 @@ def ansatz_circuit(n, params):
     qc.append(QFT(num_qubits=n, do_swaps=True, inverse=True, approximation_degree=0), range(n - 1, -1, -1))
 
     # Return the constructed circuit
+    qc.draw('mpl')
     return qc
 
 
